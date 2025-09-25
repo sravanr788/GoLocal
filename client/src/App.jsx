@@ -1,10 +1,18 @@
 import './App.css'
+import Navbar from './components/Navbar'
+import Events from './components/Events'
+import AddEvent from './components/AddEvent'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
 
   return (
     <>
-      <h1 className="text-xl font-bold underline">GoLocal</h1>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Events />} />
+        <Route path="/create" element={<AddEvent />} />
+      </Routes>
     </>
   )
 }
