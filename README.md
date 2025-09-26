@@ -1,7 +1,5 @@
 # GoLocal - Connect with Your Community
 
-![GoLocal Platform](https://images.unsplash.com/photo-1511795409834-432f7b1dd1a5?q=80&w=1470&auto=format&fit=crop)
-
 GoLocal is a modern web platform that enables users to **find, explore, and join** local events based on their interests and location. Whether you're looking for workshops, social gatherings, hobby clubs, or fitness meetups, GoLocal makes it easy to discover and connect with your community.
 
 ## Features
@@ -13,7 +11,8 @@ GoLocal is a modern web platform that enables users to **find, explore, and join
 
 ## Screenshots
 
-![GoLocal Homepage](https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070)
+<img width="1884" height="875" alt="Screenshot 2025-09-26 233446" src="https://github.com/user-attachments/assets/870932f8-4e92-4b96-ac7e-7d7f4131c581" />
+
 
 ## Setup and Installation
 
@@ -26,8 +25,8 @@ GoLocal is a modern web platform that enables users to **find, explore, and join
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/sravanr788/golocal.git
-   cd golocal
+   git clone https://github.com/sravanr788/GoLocal.git
+   cd GoLocal
    ```
 
 2. Install dependencies:
