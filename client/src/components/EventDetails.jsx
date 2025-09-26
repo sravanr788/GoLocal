@@ -27,8 +27,13 @@ export default function EventDetails() {
     const loadEventImage = async () => {
       if (!event) return;
 
+      if (event.image) {
+        setEventImage(event.image);
+        return;
+      }
+
       try {
-        const response = await fetch("/event-images.json");
+        const response = await fetch(`${import.meta.env.BASE_URL}event-images.json`);
         const imageData = await response.json();
 
         if (event.type && imageData.eventTypes[event.type]) {
@@ -154,7 +159,7 @@ export default function EventDetails() {
           </p>
           <div className="mt-6">
             <Link
-              to="/events"
+              to="/"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Back to Events
@@ -404,7 +409,7 @@ export default function EventDetails() {
       {/* Back to events button */}
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <Link
-          to="/events"
+          to="/"
           className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <svg

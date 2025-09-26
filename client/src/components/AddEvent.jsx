@@ -319,7 +319,7 @@ export default function AddEvent() {
       >
         <button
           type="button"
-          onClick={() => navigate('/events')}
+          onClick={() => navigate('/')}
           className="text-blue-600 cursor-pointer hover:text-blue-800 font-medium"
         >
           ← Back to Events
