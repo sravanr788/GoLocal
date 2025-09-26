@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -7,11 +7,7 @@ export default function Navbar() {
     <nav className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <h1 className="text-2xl text-blue-600 flex items-center gap-2 font-extrabold pacifico-regular hover:text-red-400 cursor-pointer rounded-sm"
-          onClick={()=>{
-            navigate("/")
-          }}
-          >
+          <Link to="/" className="text-2xl text-blue-600 flex items-center gap-2 font-extrabold pacifico-regular hover:text-red-400 cursor-pointer rounded-sm">
             <i className="text-4xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,21 +33,21 @@ export default function Navbar() {
               </svg>
             </i>
             <span className="pacifico-regular">GoLocal</span>
-          </h1>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-6">
-            <a
+            <Link
               className="px-3 py-2 rounded-md text-sm font-medium transition-colors  whitespace-nowrap cursor-pointer text-blue-600 bg-blue-50 hover:bg-gray-50"
-              href="/"
+              to="/"
             >
               Explore Events
-            </a>
-            <a
+            </Link>
+            <Link
               className="px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap cursor-pointer text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-              href="/create"
+              to="/create"
             >
               Create Event
-            </a>
+            </Link>
           </div>
           <button className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors cursor-pointer">
             <i className="text-xl ri-menu-line"></i>
