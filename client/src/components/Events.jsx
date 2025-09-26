@@ -266,7 +266,7 @@ export default function Events() {
           Create your own event and bring your community together. It's easy and
           free!
         </p>
-        <Link to="/create-event">
+        <Link to="/create">
           <motion.button
             className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
             whileHover={{ scale: 1.05 }}

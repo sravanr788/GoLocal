@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 
 export default function AddEvent() {
-  const {events, setEvents } = useContext(EventsContext);
+  const { addEvent } = useContext(EventsContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,26 +28,30 @@ export default function AddEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newEvent = {
-      id: Date.now(),
-      ...formData,
-    };
-
     try {
-      // This assumes you have a backend running on /api/events (Next.js API or Express)
-      // const res = await fetch(
-      //   "https://mp48c59a7ff018d5b37b.free.beeceptor.com/events",
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(newEvent),
-      //   }
-      // );
-      setEvents([...events, newEvent]);
+      // Format the location as city + address
+      const location = `${formData.city}, ${formData.address}`;
+      
+      // Create the new event object with proper structure
+      const newEvent = {
+        title: formData.title,
+        description: formData.description,
+        type: formData.type,
+        date: formData.date,
+        time: formData.time,
+        location: location,
+        host: formData.host,
+        image: formData.imageUrl,
+        capacity: formData.capacity || 100,
+      };
 
-      // if (!res.ok) throw new Error("Failed to save event");
-
+      // Use the addEvent function from context to add the event
+      const createdEvent = addEvent(newEvent);
+      
+      // Show success message
       alert("Event created successfully!");
+      
+      // Reset form
       setFormData({
         title: "",
         description: "",
@@ -60,7 +64,9 @@ export default function AddEvent() {
         imageUrl: "",
         capacity: "",
       });
-      navigate('/')
+      
+      // Redirect to the new event's details page
+      navigate(`/event/${createdEvent.id}`);
     } catch (err) {
       console.error(err);
       alert("Error creating event.");
@@ -313,8 +319,8 @@ export default function AddEvent() {
       >
         <button
           type="button"
-          onClick={() => navigate('/')}
-          className="text-blue-600 hover:text-blue-800 font-medium"
+          onClick={() => navigate('/events')}
+          className="text-blue-600 cursor-pointer hover:text-blue-800 font-medium"
         >
           ← Back to Events
         </button>

@@ -27,13 +27,24 @@ export const EventsProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch events from API with improved error handling
+  // Fetch events from API with improved error handling and local storage
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
         setError(null);
         
+        // Try to get events from localStorage first
+        const localEvents = localStorage.getItem('goLocalEvents');
+        if (localEvents) {
+          const parsedEvents = JSON.parse(localEvents);
+          setEvents(parsedEvents);
+          setFilteredEvents(parsedEvents);
+          setLoading(false);
+          return;
+        }
+        
+        // If no local events, fetch from JSON file
         const res = await fetch("/events.json");
         
         if (!res.ok) {
@@ -46,8 +57,12 @@ export const EventsProvider = ({ children }) => {
           throw new Error("No events data available");
         }
         
-        setEvents(data.events || data);
-        setFilteredEvents(data.events || data);
+        const eventsData = data.events || data;
+        setEvents(eventsData);
+        setFilteredEvents(eventsData);
+        
+        // Save to localStorage
+        localStorage.setItem('goLocalEvents', JSON.stringify(eventsData));
       } catch (err) {
         console.error("Error fetching events:", err);
         setError(err.message || "An unexpected error occurred while fetching events");
@@ -102,7 +117,23 @@ export const EventsProvider = ({ children }) => {
 
   // Add a new event
   const addEvent = (newEvent) => {
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
+    // Generate a unique ID for the new event
+    const newId = Math.max(...events.map(event => event.id), 0) + 1;
+    const eventWithId = {
+      ...newEvent,
+      id: newId,
+      attendees: 0
+    };
+    
+    // Update both events and filteredEvents states
+    const updatedEvents = [...events, eventWithId];
+    setEvents(updatedEvents);
+    setFilteredEvents(prevFilteredEvents => [...prevFilteredEvents, eventWithId]);
+    
+    // Save to localStorage
+    localStorage.setItem('goLocalEvents', JSON.stringify(updatedEvents));
+    
+    return eventWithId;
   };
 
   // Get event by ID
@@ -136,18 +167,20 @@ export const EventsProvider = ({ children }) => {
       });
       
       setEvents(updatedEvents);
-      setFilteredEvents(
-        filteredEvents.map((event) => {
-          if (event.id === eventId || event.id === parseInt(eventId)) {
-            return {
-              ...event,
-              attendees: (event.attendees || 0) + 1,
-              isRsvped: true
-            };
-          }
-          return event;
-        })
-      );
+      const updatedFilteredEvents = filteredEvents.map((event) => {
+        if (event.id === eventId || event.id === parseInt(eventId)) {
+          return {
+            ...event,
+            attendees: (event.attendees || 0) + 1,
+            isRsvped: true
+          };
+        }
+        return event;
+      });
+      setFilteredEvents(updatedFilteredEvents);
+      
+      // Save to localStorage
+      localStorage.setItem('goLocalEvents', JSON.stringify(updatedEvents));
       
       return true;
     } catch (err) {

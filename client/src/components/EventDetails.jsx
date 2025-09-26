@@ -11,13 +11,66 @@ export default function EventDetails() {
   const [showRsvpModal, setShowRsvpModal] = useState(false);
   const [rsvpSuccess, setRsvpSuccess] = useState(false);
   const [rsvpLoading, setRsvpLoading] = useState(false);
+  const [eventImage, setEventImage] = useState("");
 
   useEffect(() => {
     if (eventId) {
       const fetchedEvent = getEventById(eventId);
-      setEvent(fetchedEvent);
+      if (fetchedEvent) {
+        setEvent(fetchedEvent);
+      }
     }
   }, [eventId, getEventById]);
+
+  // Load event image based on event type or keywords
+  useEffect(() => {
+    const loadEventImage = async () => {
+      if (!event) return;
+
+      try {
+        const response = await fetch("/event-images.json");
+        const imageData = await response.json();
+
+        if (event.type && imageData.eventTypes[event.type]) {
+          const typeImages = imageData.eventTypes[event.type];
+          setEventImage(
+            typeImages[Math.floor(Math.random() * typeImages.length)]
+          );
+          return;
+        }
+
+        const keywords = Object.keys(imageData.keywords);
+        for (const keyword of keywords) {
+          if (
+            (event.title &&
+              event.title.toLowerCase().includes(keyword.toLowerCase())) ||
+            (event.description &&
+              event.description.toLowerCase().includes(keyword.toLowerCase()))
+          ) {
+            const keywordImages = imageData.keywords[keyword];
+            setEventImage(
+              keywordImages[Math.floor(Math.random() * keywordImages.length)]
+            );
+            return;
+          }
+        }
+
+        const defaultImages = imageData.keywords.default;
+        setEventImage(
+          defaultImages[Math.floor(Math.random() * defaultImages.length)]
+        );
+      } catch (error) {
+        console.error("Error loading event images:", error);
+        setEventImage(
+          "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600&h=900&fit=crop"
+        );
+      }
+    };
+
+    if (event) {
+      loadEventImage();
+    }
+  }, [event]);
 
   const handleRsvp = () => {
     setRsvpLoading(true);
@@ -129,6 +182,7 @@ export default function EventDetails() {
         <div className="absolute inset-0">
           <img
             src={
+              eventImage ||
               event.image ||
               "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600&h=900&fit=crop"
             }
@@ -159,11 +213,76 @@ export default function EventDetails() {
       </motion.div>
 
       {/* Event details */}
-      <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative">
+        {/* Left decorative element */}
+        <div className="hidden md:block absolute left-0 top-1/4 h-64 w-24">
+          <svg
+            className="w-full h-full text-blue-400"
+            viewBox="0 0 100 200"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="20" cy="30" r="15" fill="currentColor" opacity="0.6" />
+            <circle cx="70" cy="70" r="10" fill="currentColor" opacity="0.4" />
+            <path
+              d="M30 100 Q 50 80, 70 100 T 100 120"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              opacity="0.7"
+            />
+            <path
+              d="M10 150 Q 30 130, 50 150 T 80 170"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              opacity="0.5"
+            />
+            <circle cx="40" cy="180" r="12" fill="currentColor" opacity="0.3" />
+          </svg>
+        </div>
+
+        {/* Right decorative element */}
+        <div className="hidden md:block absolute right-0 top-1/3 h-64 w-24">
+          <svg
+            className="w-full h-full text-blue-400"
+            viewBox="0 0 100 200"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="50" cy="20" r="12" fill="currentColor" opacity="0.5" />
+            <path
+              d="M20 40 L 40 60 L 60 40 L 80 60"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              opacity="0.6"
+            />
+            <rect
+              x="30"
+              y="80"
+              width="40"
+              height="40"
+              rx="5"
+              fill="currentColor"
+              opacity="0.3"
+            />
+            <path
+              d="M20 140 Q 50 120, 80 140"
+              stroke="currentColor"
+              strokeWidth="3"
+              fill="none"
+              opacity="0.7"
+            />
+            <circle cx="30" cy="170" r="15" fill="currentColor" opacity="0.4" />
+            <circle cx="70" cy="180" r="10" fill="currentColor" opacity="0.5" />
+          </svg>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8">
           {/* Main content */}
           <motion.div
-            className="lg:col-span-2"
+            className=""
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -177,7 +296,7 @@ export default function EventDetails() {
               </p>
 
               {/* Host information */}
-              <div className="mt-8 flex items-center">
+              <div className="mt-8 flex items-center justify-center">
                 <img
                   src={
                     event.hostImage ||
@@ -198,14 +317,14 @@ export default function EventDetails() {
 
           {/* Sidebar */}
           <motion.div
-            className="lg:col-span-1"
+            className="w-md md:w-lg mt-4 mx-auto"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="bg-gray-50 rounded-lg p-6 shadow-sm sticky top-8">
               <div className="mb-6 place-items-center text-center">
-                <h3 className="text-lg md:text-2xl font-medium font-mono text-gray-600 mb-2">
+                <h3 className="text-lg md:text-2xl font-medium font-mono text-blue-800 mb-2">
                   When and where
                 </h3>
                 <div className="flex mt-4 mr-4">
@@ -236,25 +355,25 @@ export default function EventDetails() {
                 <div className="flex mt-4 mr-4">
                   <div className="ml-3">
                     <p className="text-gray-900 font-medium flex gap-2">
-                         <svg
-                      className="h-6 w-6 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
+                      <svg
+                        className="h-6 w-6 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
                       {event.location}
                     </p>
                     <p className="text-gray-500">
@@ -304,12 +423,16 @@ export default function EventDetails() {
         </Link>
       </div>
 
-      {/* RSVP Modal */}
       {showRsvpModal && (
-        <div className="fixed z-10 inset-0 overflow-y-auto z-5">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-           
+        <div className="fixed inset-0 z-40 overflow-y-auto">
+          {/* Semi-transparent overlay with blur effect */}
+          <div
+            className="fixed inset-0 bg-opacity-75 backdrop-blur-sm"
+            onClick={() => setShowRsvpModal(false)}
+            aria-hidden="true"
+          ></div>
 
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <span
               className="hidden sm:inline-block sm:align-middle sm:h-screen"
               aria-hidden="true"
@@ -318,7 +441,7 @@ export default function EventDetails() {
             </span>
 
             <motion.div
-              className="inline-block align-bottom bg-white z-[100] rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.3 }}
@@ -357,7 +480,7 @@ export default function EventDetails() {
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center  cursor-pointer rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="w-full inline-flex justify-center cursor-pointer rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={handleRsvp}
                   disabled={rsvpLoading}
                 >
@@ -402,7 +525,6 @@ export default function EventDetails() {
           </div>
         </div>
       )}
-
       {/* Success Alert */}
       {rsvpSuccess && (
         <motion.div

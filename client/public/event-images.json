@@ -1,0 +1,108 @@
+{
+  "eventTypes": {
+    "Workshop": [
+      "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1558403194-611308249627?w=800&h=400&fit=crop"
+    ],
+    "Conference": [
+      "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1540304453527-62f979142a17?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=400&fit=crop"
+    ],
+    "Meetup": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=400&fit=crop"
+    ],
+    "Concert": [
+      "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&h=400&fit=crop"
+    ],
+    "Exhibition": [
+      "https://images.unsplash.com/photo-1594122230689-45899d9e6f69?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1605429523419-f5674c39f6b1?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=800&h=400&fit=crop"
+    ],
+    "Party": [
+      "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=800&h=400&fit=crop"
+    ],
+    "Sports": [
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800&h=400&fit=crop"
+    ],
+    "Networking": [
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=400&fit=crop"
+    ],
+    "Seminar": [
+      "https://images.unsplash.com/photo-1558008258-3256797b43f3?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560439514-4e9645039924?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560523159-4a9692d222f9?w=800&h=400&fit=crop"
+    ],
+    "Festival": [
+      "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&h=400&fit=crop"
+    ],
+    "Social": [
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=400&fit=crop"
+    ],
+    "Entertainment": [
+      "https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=400&fit=crop"
+    ],
+    "Fitness": [
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&h=400&fit=crop"
+    ]
+  },
+  "keywords": {
+    "tech": [
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=400&fit=crop"
+    ],
+    "food": [
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=400&fit=crop"
+    ],
+    "art": [
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&h=400&fit=crop"
+    ],
+    "music": [
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&h=400&fit=crop"
+    ],
+    "business": [
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=800&h=400&fit=crop"
+    ],
+    "education": [
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop"
+    ],
+    "health": [
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=800&h=400&fit=crop"
+    ],
+    "fitness": [
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&h=400&fit=crop"
+    ],
+    "community": [
+      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1536080805909-a9d9c21adb1a?w=800&h=400&fit=crop"
+    ],
+    "default": [
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=400&fit=crop"
+    ]
+  }
+}

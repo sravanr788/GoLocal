@@ -26,3 +26,24 @@ body{
 
 
 @import "tailwindcss";
+
+/* Font family utility classes */
+.font-primary {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-accent {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-mono {
+  font-family: 'Source Code Pro', monospace;
+}
