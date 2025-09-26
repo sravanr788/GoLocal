@@ -8,7 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Router>
+    <Router basename="/GoLocal/">
         <App />
     </Router>
   </StrictMode>,
