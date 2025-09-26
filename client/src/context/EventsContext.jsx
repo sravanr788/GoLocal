@@ -45,7 +45,7 @@ export const EventsProvider = ({ children }) => {
         }
         
         // If no local events, fetch from JSON file
-        const res = await fetch("/events.json");
+        const res = await fetch(`${import.meta.env.BASE_URL}events.json`);
         
         if (!res.ok) {
           throw new Error(`Failed to fetch events: ${res.status} ${res.statusText}`);
