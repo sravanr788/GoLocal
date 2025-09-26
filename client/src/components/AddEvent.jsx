@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { EventsContext } from "../context/EventsContext";
+import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
 
 export default function AddEvent() {
+  const {events, setEvents } = useContext(EventsContext);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -29,13 +35,17 @@ export default function AddEvent() {
 
     try {
       // This assumes you have a backend running on /api/events (Next.js API or Express)
-      const res = await fetch("/api/events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newEvent),
-      });
+      // const res = await fetch(
+      //   "https://mp48c59a7ff018d5b37b.free.beeceptor.com/events",
+      //   {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify(newEvent),
+      //   }
+      // );
+      setEvents([...events, newEvent]);
 
-      if (!res.ok) throw new Error("Failed to save event");
+      // if (!res.ok) throw new Error("Failed to save event");
 
       alert("Event created successfully!");
       setFormData({
@@ -50,6 +60,7 @@ export default function AddEvent() {
         imageUrl: "",
         capacity: "",
       });
+      navigate('/')
     } catch (err) {
       console.error(err);
       alert("Error creating event.");
@@ -57,22 +68,42 @@ export default function AddEvent() {
   };
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-8">
-      <div className="text-center mb-8">
+    <motion.main 
+      className="max-w-2xl mx-auto px-4 py-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div 
+        className="text-center mb-8"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Create New Event
         </h1>
         <p className="text-gray-600">
           Share your event with the community and bring people together
         </p>
-      </div>
+      </motion.div>
 
-      <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-        <form onSubmit={handleSubmit} className="space-y-6 text-left text-black">
+      <motion.div 
+        className="bg-white rounded-xl shadow-lg p-6 md:p-8"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 text-left text-black"
+        >
           {/* Title */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Event Title *
+              Event Title
+              <span className="text-red-500 ml-1">*</span>
             </label>
             <input
               name="title"
@@ -88,7 +119,8 @@ export default function AddEvent() {
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description *
+              Description
+              <span className="text-red-500 ml-1">*</span>
             </label>
             <textarea
               name="description"
@@ -104,7 +136,8 @@ export default function AddEvent() {
           {/* Event Type */}
           <div className="relative">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Event Type *
+              Event Type
+              <span className="text-red-500 ml-1">*</span>
             </label>
             <select
               name="type"
@@ -115,42 +148,70 @@ export default function AddEvent() {
             >
               <option value="">Select event type</option>
               <option value="Workshop">Workshop</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Fitness">Fitness</option>
               <option value="Music">Music</option>
               <option value="Sports">Sports</option>
               <option value="Meetup">Meetup</option>
               <option value="Other">Other</option>
             </select>
-            <i className="ri-arrow-down-s-line absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+            <i className="ri-arrow-down-s-line absolute right-3 bottom-1/25 -translate-y-1/2 text-gray-600 pointer-events-none"></i>
           </div>
 
           {/* Date & Time */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Date *
+                Date
+                <span className="text-red-500 ml-1">*</span>
               </label>
-              <input
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                min="2025-09-26"
-                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-300"
-                type="date"
-                required
-              />
+              <div className="relative">
+                <input
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  min="2025-09-26"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-300"
+                  type="date"
+                  id="date"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    document.getElementById("date")?.showPicker?.()
+                  }
+                  className="absolute right-2 cursor-pointer top-1/2 -translate-y-1/2 text-gray-500"
+                >
+                  <i className="ri-calendar-fill"></i>
+                </button>
+              </div>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Time *
+                Time
               </label>
-              <input
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-300"
-                type="time"
-                required
-              />
+              <div className="relative">
+                <input
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-300"
+                  type="time"
+                  id="time"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    document.getElementById("time")?.showPicker?.()
+                  }
+                  className="absolute right-4 cursor-pointer z-index-1 top-1/2 -translate-y-1/2 text-gray-500"
+                >
+                  <i className="ri-time-line"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -158,7 +219,8 @@ export default function AddEvent() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                City *
+                City
+                <span className="text-red-500 ml-1">*</span>
               </label>
               <input
                 name="city"
@@ -172,7 +234,8 @@ export default function AddEvent() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Address *
+                Address
+                <span className="text-red-500 ml-1">*</span>
               </label>
               <input
                 name="address"
@@ -189,7 +252,8 @@ export default function AddEvent() {
           {/* Host */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Host Name *
+              Host Name
+              <span className="text-red-500 ml-1">*</span>
             </label>
             <input
               name="host"
@@ -205,7 +269,8 @@ export default function AddEvent() {
           {/* Image */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Event Image URL *
+              Event Image URL
+              <span className="text-red-500 ml-1">*</span>
             </label>
             <input
               name="imageUrl"
@@ -238,7 +303,22 @@ export default function AddEvent() {
             </button>
           </div>
         </form>
-      </div>
-    </main>
+      </motion.div>
+      
+      <motion.div 
+        className="mt-6 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+      >
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="text-blue-600 hover:text-blue-800 font-medium"
+        >
+          ← Back to Events
+        </button>
+      </motion.div>
+    </motion.main>
   );
 }

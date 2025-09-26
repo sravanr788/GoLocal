@@ -3,7 +3,11 @@ export default function Navbar() {
     <nav className="bg-white shadow-lg top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <h1 className="text-2xl text-blue-600 flex items-center gap-2 font-extrabold pacifico-regular">
+          <h1 className="text-2xl text-blue-600 flex items-center gap-2 font-extrabold pacifico-regular hover:text-red-400 hover:bg-gray-100 cursor-pointer rounded-sm"
+          onClick={()=>{
+            navigate("/")
+          }}
+          >
             <i className="text-4xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +36,7 @@ export default function Navbar() {
           </h1>
           <div className="hidden md:flex flex-1 max-w-lg mx-8">
             <form className="w-full">
-              <div className="relative text-black">
+              {/* <div className="relative text-black">
                 <input
                   placeholder="Search events, hosts, or locations..."
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
@@ -58,21 +62,19 @@ export default function Navbar() {
                     />
                   </svg>
                 </i>
-              </div>
+              </div> */}
             </form>
           </div>
           <div className="hidden md:flex items-center space-x-6">
             <a
-              className="px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap cursor-pointer text-blue-600 bg-blue-50"
-              href="/"
-              data-discover="true"
+              className="px-3 py-2 rounded-md text-sm font-medium transition-colors  whitespace-nowrap cursor-pointer text-blue-600 bg-blue-50 hover:bg-gray-50"
+              href="/events"
             >
               Explore Events
             </a>
             <a
               className="px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap cursor-pointer text-gray-700 hover:text-blue-600 hover:bg-gray-50"
               href="/create"
-              data-discover="true"
             >
               Create Event
             </a>

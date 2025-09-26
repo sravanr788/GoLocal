@@ -7,9 +7,8 @@ const EventCard = ({ event }) => {
         className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer"
         style={{ opacity: 1, transform: 'none', boxShadow: 'rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px' }}
       >
-        <a
+        <div
           className="block"
-          href="/events/evt_002"
         >
           <div className="relative h-48 overflow-hidden">
             <img
@@ -51,7 +50,7 @@ const EventCard = ({ event }) => {
             </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   );
